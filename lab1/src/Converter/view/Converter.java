@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.util.Scanner;
 import static Converter.model.decToHex.decToHex;
 import static Converter.model.hexToDec.hexToDec;
+import Converter.view.Author;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  *  Class that converts given number from dex to hex or the other way.
@@ -43,6 +48,7 @@ public class Converter {
     private static boolean sArgCorr = true;
     private static boolean checker = true;
     
+    @Author(name = "Bartek", date = "15/11/2016")
     public static void main(String[] args) throws IOException { 
                         
         try{          

@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * @author Bartek GRUBA
  * @version 1.2
  */
+
 public final class hexToDec {
     /**
      * @param str - number in hex represented by string
@@ -20,10 +21,13 @@ public final class hexToDec {
      * @param digits - personal generic type
      * @return converted number
      */    
+    
+    private static int counter = 0;
+    private static ArrayList<Integer> digits = new ArrayList<Integer>();
+    
     public static int hexToDec(String str) {
-        ArrayList<Integer> digits = new ArrayList<Integer>();
         str = str.toUpperCase();
-        int counter = 0;
+        counter = 0;
         int value = 0;
             for (int i = (str.length() - 1); i >= 0; i--) {
                 char c = str.charAt(i);           
@@ -64,7 +68,7 @@ public final class hexToDec {
             digits.add(i);
         for(Integer I : digits){
             if(I.equals(counter))
-                System.out.println("Entered hex number has " + I + " digits");
+                System.out.println("Entered hex number has " + I + " digit(s)");
         }
         return value;
     }
