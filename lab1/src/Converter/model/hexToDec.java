@@ -6,6 +6,7 @@
 package Converter.model;
 
 import static java.lang.Character.isDigit;
+import java.util.ArrayList;
 
 /**
  *  Class for converting number from hex system to decimal.
@@ -15,9 +16,12 @@ import static java.lang.Character.isDigit;
 public final class hexToDec {
     /**
      * @param str - number in hex represented by string
+     * @param counter - number of digits in entered number
+     * @param digits - personal generic type
      * @return converted number
      */    
     public static int hexToDec(String str) {
+        ArrayList<Integer> digits = new ArrayList<Integer>();
         str = str.toUpperCase();
         int counter = 0;
         int value = 0;
@@ -56,6 +60,12 @@ public final class hexToDec {
                     }
                 }                        
             }
+        for(int i = 1; i <= counter; i++)
+            digits.add(i);
+        for(Integer I : digits){
+            if(I.equals(counter))
+                System.out.println("Entered hex number has " + I + " digits");
+        }
         return value;
     }
 }
