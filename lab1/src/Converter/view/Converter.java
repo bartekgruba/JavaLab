@@ -5,15 +5,13 @@
  */
 package Converter.view;
 
+import Converter.model.NegativeException;
 import java.io.IOException;
 import java.util.Scanner;
 import static Converter.model.decToHex.decToHex;
 import static Converter.model.hexToDec.hexToDec;
-import Converter.view.Author;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *  Class that converts given number from dex to hex or the other way.
@@ -56,8 +54,8 @@ public class Converter {
             convNumber = args[1];
         }
         catch (IndexOutOfBoundsException exc) {
-        System.err.println("IndexOutOfBoundsException: " + exc.getMessage());
-        return;
+            System.err.println("IndexOutOfBoundsException: " + exc.getMessage());
+            return;
         }
         
         while(fArgCorr){
@@ -87,9 +85,9 @@ public class Converter {
         while(sArgCorr){
             if(mode == 0){
                 try{                    
-                    int tmp = Integer.parseInt(convNumber);
+                    int tmp = Integer.parseInt(convNumber);                    
                     HexRes = decToHex(tmp);
-                    sArgCorr = false;
+                    sArgCorr = false;                    
                 }
                 catch(NumberFormatException exc){
                     System.err.println("Caught NumberFormatException: "
@@ -98,10 +96,10 @@ public class Converter {
                             + " to be converted");
                     Scanner reader = new Scanner(System.in);
                     convNumber = reader.next();
-                }
-                catch(Exception exc){
-                    System.err.println("Caught converting exception: "
-                            + exc.getMessage());
+                } catch (NegativeException ex) {
+                    System.out.println("Please enter non negative number: ");
+                    Scanner reader = new Scanner(System.in);
+                    convNumber = reader.next();
                 }
             }
             else{
@@ -109,7 +107,7 @@ public class Converter {
                 for( int i = 0 ; i < convNumber.length() ; i++ ){
                     if (Character.digit(convNumber.charAt(i), 16) == -1 ){
                         System.out.println("Entered number does not exist"
-                                + " in hex system!");
+                                + " in hex system or is not supported!");
                         System.out.println("Enter correct number in hexadecimal"
                                 + " system to be converted");
                         Scanner reader = new Scanner(System.in);
@@ -118,14 +116,23 @@ public class Converter {
                     }
                 }
                 if(checker){
-                    DecRes = hexToDec(convNumber);
+                    try {
+                        DecRes = hexToDec(convNumber);
+                    } catch (NegativeException ex) {
+                        System.out.println("Please enter non negative number: ");
+                        Scanner reader = new Scanner(System.in);
+                        convNumber = reader.next();
+                    }
                     sArgCorr = false;  
                 }
             }
         }
         if(mode == 0){
-            System.out.println("Decimal number " + convNumber +
+            int tmp = Integer.parseInt(convNumber);
+            if(tmp >= 0){
+                System.out.println("Decimal number " + convNumber +
                     " equals " + HexRes + " in hex system.");
+            }
         }
         else{
             System.out.println("Hex number " + convNumber.toUpperCase() +

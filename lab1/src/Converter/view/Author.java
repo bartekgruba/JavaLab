@@ -12,7 +12,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- *
+ * Personal annotation
+ * @version 1.2
  * @author Bartek
  */
 
